@@ -11,9 +11,9 @@ class CurrencyModel extends Currency{
   :super(currencyFlag:currencyFlag, currencyRate: currencyRate, currencyName: currencyName);
 
 
-// from json code
+// Factory from json code
 
-// to json code
+// Factory to json code
   
 
 }
