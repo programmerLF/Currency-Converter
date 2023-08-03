@@ -1,8 +1,6 @@
 // will contain the method that fetches the data from the API
 
-import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
 import 'package:http/http.dart';
-import 'dart:io';
 
 
 

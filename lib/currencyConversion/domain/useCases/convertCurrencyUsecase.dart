@@ -10,9 +10,9 @@ class ConvertCurrencyUsecase {
   final CurrencyRepositry _currencyRepositry;
   ConvertCurrencyUsecase(this._currencyRepositry);
 
-  Future<void> call(Currency currency) async {
+  Future<double> call(String baseCurrency, String targetCurrency, double baseAmount) async {
     // calling the methods of currency repositry 
-    await _currencyRepositry.convertCurrency(currency);
+    return await _currencyRepositry.convertCurrency(baseCurrency, targetCurrency, baseAmount);
 
   }
 }
