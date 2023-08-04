@@ -1,5 +1,5 @@
 import 'package:currency_converter/currencyConversion/data/model/currencyModel.dart';
-import 'package:flutter/foundation.dart';
+
 
 class Currency{
 

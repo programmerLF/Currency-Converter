@@ -1,6 +1,7 @@
 
 import 'package:currency_converter/currencyConversion/core/utilities/logic/flagUrlGenerator.dart';
 import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
+// ignore: deprecated_member_use
 
 
 class CurrencyModel extends Currency{
@@ -14,15 +15,19 @@ class CurrencyModel extends Currency{
 
 // will create a currency model object with same attribues of the currecny class
  factory CurrencyModel.fromJson(Map<String, dynamic> json) {
-  String code = json["data"].keys.first;
+  String code = json["data"].keys.first.toString();
     return CurrencyModel(
-      currencyRate: json["data"][code],
+      currencyRate: json["data"][code] as double,
       currencyFlag: FlagUrlGenerator.generateFlagUrl(code),
       currencyName: code,
     );
   }
 
 // Factory to json code
-  
+   @override
+  String toString() {
+    
+    return "$this.currencyRate $this.currencyFlag $this.currencyName";
+  }
 
 }
