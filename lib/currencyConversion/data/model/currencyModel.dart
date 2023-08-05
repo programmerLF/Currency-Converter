@@ -15,19 +15,25 @@ class CurrencyModel extends Currency{
 
 // will create a currency model object with same attribues of the currecny class
  factory CurrencyModel.fromJson(Map<String, dynamic> json) {
-  String code = json["data"].keys.first.toString();
+  String code = json["data"].keys.first;
+
+  
     return CurrencyModel(
-      currencyRate: json["data"][code] as double,
+      currencyRate: json["data"][code].toDouble(),
       currencyFlag: FlagUrlGenerator.generateFlagUrl(code),
       currencyName: code,
     );
   }
 
+
 // Factory to json code
+
+
+// to string method
    @override
   String toString() {
     
-    return "$this.currencyRate $this.currencyFlag $this.currencyName";
+    return "Currency: Code: $currencyName, Rate: $currencyRate, FlagURL: $currencyFlag \n";
   }
 
 }

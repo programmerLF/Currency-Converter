@@ -5,51 +5,60 @@ import 'package:currency_converter/currencyConversion/data/model/currencyModel.d
 import 'package:http/http.dart' as http;
 import '../../core/utilities/logic/flagUrlGenerator.dart';
 
+ abstract class CurrencyRemoteDataSource {
+Future<void> fetchAllCurrencies();
 
-         void main() async{
-   await fetchAllCurrencies();
-   await fetchTwoCurrenciesRate("EUR", "CAD");
+Future<CurrencyModel> fetchOneCurrencyRate(String baseCurrency, String targetCurrency);
+
 }
-    
+      
+     void main() async{
+   await CurrencyRemoteDataSourceImp().fetchAllCurrencies();
+  //  await CurrencyRemoteDataSourceImp().fetchOneCurrencyRate("CAD", "EUR");
+}
 
+class CurrencyRemoteDataSourceImp implements CurrencyRemoteDataSource {
+
+  
+
+  @override
   Future<void> fetchAllCurrencies() async{
-    try{
+    
           final http.Response response = await http.get(Uri.parse(
         "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ"));
         // print(response.body);
 
         if (response.statusCode == 200){
-            String data = response.body;
 
-            Map<String, dynamic> decodedData = jsonDecode(data);
+            final  jsonData = jsonDecode(response.body);
+            final data = jsonData["data"] as Map<String, dynamic>;
 
-            String currencyCode = decodedData["data"].keys.first;
-            double currencyRate = decodedData["data"][currencyCode];
-            
-            print(currencyCode + " " + currencyRate.toString());
-            print(decodedData["data"].keys.length);
-            
-            // CurrencyModel currency1 = CurrencyModel.fromJson(decodedData);
-            // List<CurrencyModel> currencies = [];
-            // decodedData.forEach((key, value) {
-             
-            //   currencies.add(CurrencyModel.fromJson({key:value}));
-            
-            // });
+               final currenciesList = data.keys.map<CurrencyModel>((key) {
 
-            // print(currencies);
-             
+                return CurrencyModel.fromJson( {
+                
+              "data": {key:data[key]}
+ 
+              });
+               }).toList();
               
+              print(currenciesList);
+   
         }
-        
+        else{
+          print(response.statusCode);
+        }
+  
     }
-    catch(e){
-      print(e);
-    }
-  }
+    
+    
+  
 
-Future<void> fetchTwoCurrenciesRate(String baseCurrency, String targetCurrency) async{
-   final http.Response response = await http.get(Uri.parse(
+  @override
+  Future<CurrencyModel> fetchOneCurrencyRate(String baseCurrency, String targetCurrency) async {
+    
+    try{
+        final http.Response response = await http.get(Uri.parse(
      "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ&currencies=$baseCurrency%2C$targetCurrency&base_currency=$baseCurrency"
    ));
 
@@ -58,9 +67,14 @@ Future<void> fetchTwoCurrenciesRate(String baseCurrency, String targetCurrency) 
      Map<String, dynamic> decodedData = jsonDecode(data);
      print(data);
    }
+    }
+    catch(e){
+      print(e);
+    }
+    throw UnimplementedError();
+  }
+  
 }
 
 
 
-  
- 
