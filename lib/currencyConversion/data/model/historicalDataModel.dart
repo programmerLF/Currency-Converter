@@ -6,7 +6,7 @@ import '../../core/utilities/logic/flagUrlGenerator.dart';
 
 class HistoricalDataModel extends Currency{
 
-final DateTime date ;
+final String date ;
 // constructer of the parent class properities 
   HistoricalDataModel({required double currencyRate, required String currencyFlag, required String currencyName, required this.date})
 
@@ -17,8 +17,9 @@ final DateTime date ;
     
 // will create a currency model object with same attribues of the currecny class
  factory HistoricalDataModel.fromJson(Map<String, dynamic> json) {
-  DateTime date = json["data"].keys.first;
+  String date = json["data"].keys.first;
   String code = json["data"][date];
+ 
 
     return HistoricalDataModel(
       currencyRate: json["data"][date][code],
