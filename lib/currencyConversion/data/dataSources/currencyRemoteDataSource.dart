@@ -13,18 +13,6 @@ Future<List<CurrencyModel>> fetchOneCurrencyRate(String baseCurrency, String tar
 Future<void> fecthHitoricaldata();
 
 }
-      
-     void main() async{
-      List<CurrencyModel> currencies = [];
-      List<CurrencyModel> currenciesRate = [];
-      
-   
-  // currencies = await CurrencyRemoteDataSourceImp().fetchAllCurrencies();
-  // print(currencies);
-  //  currenciesRate = await CurrencyRemoteDataSourceImp().fetchOneCurrencyRate("EUR", "USD");
-  //  print(currenciesRate);
-   await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
-}
 
 class CurrencyRemoteDataSourceImp implements CurrencyRemoteDataSource {
 
@@ -85,30 +73,33 @@ class CurrencyRemoteDataSourceImp implements CurrencyRemoteDataSource {
       Future<void> fecthHitoricaldata() async{
         DateTime now = DateTime.now();
         DateTime date = DateTime(now.year, now.month, now.day);
-        DateTime dateTo = date.subtract(const Duration(days: 7));
-        DateTime dateFrom = dateTo.subtract(const Duration(days: 7));
+        DateTime dateTo = date.subtract(const Duration(days: 1));
+        DateTime dateFrom = date.subtract(const Duration(days: 9));
         String to = dateTo.toString().substring(0,10);
         String from = dateFrom.toString().substring(0,10);
-        print(to);
-        print(from);
+        // print(from);
+        // print(to);
        
         final http.Response response = await http.get(Uri.parse(
-        "https://api.freecurrencyapi.com/v1/historical?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ&currencies=EUR%2CUSD%2CCAD&date_from=${from}T19%3A52%3A25.751Z&date_to=${to}T19%3A52%3A25.751Z"));
+        "https://api.freecurrencyapi.com/v1/historical?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ&currencies=EUR%2CUSD&date_from=${from}T13%3A17%3A51.674Z&date_to=${to}T13%3A17%3A51.674Z"));
 
         if (response.statusCode == 200){
 
           final jsonData = jsonDecode(response.body);
-          print(jsonData);
-          final data = jsonData["data"] as Map<String, Map<String, dynamic>>;
-          
-          final historicalData = jsonData.keys.map<HistoricalDataModel>((key) {
-            
-            return HistoricalDataModel.fromJson( { "data": {key:jsonData[key]}});}).toList();
+          final data = jsonData["data"];
+          print(data);
 
-            print(historicalData);
-        
+           data.keys.map((date) {
+             print(date);
+              final currenciesList = date.keys.map<CurrencyModel>((key) {
+                print(date);
+                return CurrencyModel.fromJson( { date: {key:date[key]}});}).toList();
 
-
+                HistoricalDataModel historyList = HistoricalDataModel(date: date, currenciesRate: currenciesList);
+                print(historyList);  
+                 return historyList;  
+                             
+                });
 
         }
 

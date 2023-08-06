@@ -2,18 +2,37 @@
 
 import 'package:http/http.dart';
 
+import 'currencyConversion/data/dataSources/currencyLocalDataSource.dart';
+import 'currencyConversion/data/dataSources/currencyRemoteDataSource.dart';
+import 'currencyConversion/data/model/currencyModel.dart';
 
 
-         void main() {
-  fetchAPIData();
-}
+
+    void main() async{
+     
+    List<CurrencyModel> currencies = [];
+    List<CurrencyModel> currenciesRate = [];
+      
+   
+    currencies = await CurrencyRemoteDataSourceImp().fetchAllCurrencies();
+    print(currencies);
+    print("//////////////////////////////////////////");
+    print(CurrencyModel.toJsonList(currencies));
+    print("//////////////////////////////////////////");
+
+    //////////////////////////////////////////
+    currenciesRate = await CurrencyRemoteDataSourceImp().fetchOneCurrencyRate("EUR", "USD");
+    print(currenciesRate);
+    print("//////////////////////////////////////////");
+    CurrencyLocalDataSourceImp().saveCurrencies(currencies);
+
+    /////////////////////////////////////////
+    await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
+            
+    }
+
+         
     
-
-  void fetchAPIData() async{
-final Response response = await get(Uri.parse(
-        "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ"));
-        print(response.body);
-        }
 
 
 

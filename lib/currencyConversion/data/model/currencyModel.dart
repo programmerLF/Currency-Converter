@@ -16,8 +16,6 @@ class CurrencyModel extends Currency{
 // will create a currency model object with same attribues of the currecny class
  factory CurrencyModel.fromJson(Map<String, dynamic> json) {
   String code = json["data"].keys.first;
-
-  
     return CurrencyModel(
       currencyRate: json["data"][code].toDouble(),
       currencyFlag: FlagUrlGenerator.generateFlagUrl(code),
@@ -27,12 +25,22 @@ class CurrencyModel extends Currency{
 
 
 // Factory to json code
+static Map toJson(CurrencyModel currencyModel) {
+  return  {
+      currencyModel.currencyName: currencyModel.currencyRate};
+      }
 
+static Map toJsonList(List<CurrencyModel> currencyModel) {
+    Map<String, dynamic> currencyMap = {};
+    for (var currency in currencyModel) {
+      currencyMap.putIfAbsent(currency.currencyName, () => currency.currencyRate); 
+    }
+    return currencyMap;
+  }
 
 // to string method
    @override
   String toString() {
-    
     return "Currency: Code: $currencyName, Rate: $currencyRate, FlagURL: $currencyFlag \n";
   }
 
