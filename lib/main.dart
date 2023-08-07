@@ -1,41 +1,69 @@
+import 'package:currency_converter/boxes.dart';
+import 'package:currency_converter/currencyConversion/data/dataSources/currencyLocalDataSource.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
+import 'currencyConversion/data/dataSources/currencyRemoteDataSource.dart';
+import 'currencyConversion/data/model/currencyModel.dart';
+import 'currencyConversion/domain/entities/currency.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-void main() {
+
+
+
+void main() async{
+ await CurrencyLocalDataSourceImp().initialiseBox();
+// remove this to another file maybe repositry imp
+ await CurrencyLocalDataSourceImp().loadDataIntoDatabase();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
+
+    
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
+    
+    return const MaterialApp(
+      title: 'Currency Converter App',
+      home: HomePage(),
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  void fetchAPIData() async{
-final Response response = await get(Uri.parse(
-        "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ"));
-        print(response.body);
-        }
-
-
-  
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    fetchAPIData();
-    return Container();
+    
+    return Scaffold(
+      backgroundColor: Colors.teal[25],
+      appBar: AppBar(
+        backgroundColor: const Color(0Xff007564),
+        title: Center(
+          child: Text("Currency Converter",  style: GoogleFonts.ibmPlexSansCondensed(
+            textStyle: const TextStyle(
+          color: Colors.white, fontSize: 28, fontWeight: FontWeight.w600))),
+        ),
+      ),
+      body: ListView.builder(
+        itemCount: currencyBox.length,
+        itemBuilder: (context, index){
+          CurrencyModel currency = currencyBox.getAt(index);
+          return  ListTile(
+            leading: Image.network(currency.currencyFlag),
+            title: Text(currency.currencyName),
+            subtitle: Text(currency.currencyRate.toString()),
+          );
+        }),
+    );
   }
 }
+
+
+
 

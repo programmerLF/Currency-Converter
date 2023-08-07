@@ -1,15 +1,14 @@
 // will contain the method that fetches the data from the API
 
-import 'package:http/http.dart';
-
+// import 'currencyConversion/data/dataSources/currencyLocalDataSource.dart';
 import 'currencyConversion/data/dataSources/currencyLocalDataSource.dart';
 import 'currencyConversion/data/dataSources/currencyRemoteDataSource.dart';
 import 'currencyConversion/data/model/currencyModel.dart';
 
 
-
     void main() async{
-     
+
+
     List<CurrencyModel> currencies = [];
     List<CurrencyModel> currenciesRate = [];
       
@@ -24,10 +23,12 @@ import 'currencyConversion/data/model/currencyModel.dart';
     currenciesRate = await CurrencyRemoteDataSourceImp().fetchOneCurrencyRate("EUR", "USD");
     print(currenciesRate);
     print("//////////////////////////////////////////");
-    CurrencyLocalDataSourceImp().saveCurrencies(currencies);
+    
+  
+    
 
     /////////////////////////////////////////
-    await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
+    // await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
             
     }
 

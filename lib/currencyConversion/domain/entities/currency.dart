@@ -1,7 +1,11 @@
 import 'package:currency_converter/currencyConversion/data/model/currencyModel.dart';
 import 'package:hive/hive.dart';
 
+
+
+part 'currency.g.dart';
 @HiveType(typeId: 0)
+
 class Currency extends HiveObject{
 
   // currency class properities
@@ -15,8 +19,6 @@ class Currency extends HiveObject{
 
   // constructor
   Currency({required this.currencyRate, required this.currencyFlag, required this.currencyName});
-
- 
 
 }
 
