@@ -7,7 +7,7 @@ final CurrencyRepositry _currencyRepositry;
 GetAllCurrenciesUsecase(this._currencyRepositry);
 
 
-Future<List<Currency>> call(){
+Future<void> call(){
   return _currencyRepositry.getAllCurrencies();
 }
 }

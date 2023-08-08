@@ -2,40 +2,50 @@
 
 import 'package:currency_converter/currencyConversion/data/model/currencyModel.dart';
 import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
+import 'package:hive/hive.dart';
 
 import '../../core/utilities/logic/flagUrlGenerator.dart';
 
-class HistoricalDataModel {
+part 'historicalDataModel.g.dart';
+@HiveType(typeId: 1)
+class HistoricalDataModel extends Currency{
 
+@HiveField(3)
 final String date ;
-final List<CurrencyModel> currenciesRate;
+
 // constructer of the parent class properities 
-  HistoricalDataModel({ required this.date, required this.currenciesRate});
-
+  HistoricalDataModel({ required this.date,
+  String currencyName ="EUR",
+  required double currencyRate,
+  String currencyFlag = "https://flagcdn.com/40x30/eu.png",
+  })
   // cosntructer that uses the properties of the extented class
-  
-  
+  : super(currencyFlag: currencyFlag, currencyName: currencyName, currencyRate: currencyRate);
 
-    
-// will create a currency model object with same attribues of the currecny class
-//  factory HistoricalDataModel.fromJson(Map<String, dynamic> json) {
-//   String date = json.keys.first;
-//   String code = json[date];
- 
+  
+   factory HistoricalDataModel.fromJson(Map<String, dynamic> json) {
+    // List<HistoricalDataModel> historicalRates = [];
+      String date = json.keys.first;
+    return HistoricalDataModel(
+      date: date,
+      currencyRate: json[date]!.values.first);
+  
+  }
 
-//     return HistoricalDataModel(
-//       currencyRate: json[date][code],
-//       currencyFlag: FlagUrlGenerator.generateFlagUrl(code),
-//       currencyName: code,
-//       date: date,
-//     );
-//   }
+  static Map toJsonList(List<HistoricalDataModel> historicalData) {
+    Map<String, dynamic> historicalDataMap = {};
+    for (var history in historicalData) {
+      historicalDataMap.putIfAbsent(history.date, () => {history.currencyName: history.currencyRate}); 
+    }
+    return historicalDataMap;
+  }
+
 
 
   @override
   String toString() {
    
-    return "Currency: Date: $date, Code: $currenciesRate \n";
+    return "Currency: Date: $date, Code: $currencyName, Rate: $currencyRate, FlagURL: $currencyFlag \n";
   }
 
 }

@@ -1,5 +1,6 @@
 import 'package:currency_converter/boxes.dart';
 import 'package:currency_converter/currencyConversion/data/dataSources/currencyLocalDataSource.dart';
+import 'package:currency_converter/currencyConversion/data/model/historicalDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart';
@@ -15,6 +16,9 @@ void main() async{
  await CurrencyLocalDataSourceImp().initialiseBox();
 // remove this to another file maybe repositry imp
  await CurrencyLocalDataSourceImp().loadDataIntoDatabase();
+
+ await CurrencyLocalDataSourceImp().initialiseHitsiricalDataBox();
+ await CurrencyLocalDataSourceImp().loadHistoricalDataIntoDatabase();
   runApp(const MyApp());
 }
 
@@ -50,16 +54,52 @@ class HomePage extends StatelessWidget {
           color: Colors.white, fontSize: 28, fontWeight: FontWeight.w600))),
         ),
       ),
-      body: ListView.builder(
-        itemCount: currencyBox.length,
-        itemBuilder: (context, index){
-          CurrencyModel currency = currencyBox.getAt(index);
-          return  ListTile(
-            leading: Image.network(currency.currencyFlag),
-            title: Text(currency.currencyName),
-            subtitle: Text(currency.currencyRate.toString()),
-          );
-        }),
+      body: Column(
+        children: [
+          Container(
+            height: 250,
+            child: ListView.builder(
+              itemCount: currencyBox.length,
+              itemBuilder: (context, index){
+                CurrencyModel currency = currencyBox.getAt(index);
+                return  ListTile(
+                  leading: Image.network(currency.currencyFlag),
+                  title: Text(currency.currencyName),
+                  subtitle: Text(currency.currencyRate.toString()),
+                );
+              }),
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Currency History"),
+          ),
+          Container(
+            height: 300,
+            child: ListView.builder(
+              itemCount: historicalCurrencyBox.length,
+              itemBuilder: (context, index){
+                HistoricalDataModel currency = historicalCurrencyBox.getAt(index);
+                return  Container(
+                  child: Column(
+                    children: [
+                      Center(child: Text(currency.date)),
+                      ListTile(
+                        leading: Image.network(currency.currencyFlag),
+                        title: Text(currency.currencyName),
+                        subtitle: Text(currency.currencyRate.toString()),
+                      ),
+                       ListTile(
+                        leading: Image.network("https://flagcdn.com/40x30/us.png"),
+                        title: Text("USD"),
+                        subtitle: Text("1"),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+          )
+        ],
+      ),
     );
   }
 }

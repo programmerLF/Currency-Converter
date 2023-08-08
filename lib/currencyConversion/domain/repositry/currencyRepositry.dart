@@ -8,7 +8,7 @@ abstract class CurrencyRepositry  {
 Future<double> convertCurrency(String baseCurrency, String targetCurrency, double baseAmount);
 
 // method that will get the list of currencies
-Future<List<Currency>> getAllCurrencies(); 
+Future<void> getAllCurrencies(); 
 
 // method that will get the rate between 2 curncies
 Future<double> getCurrencyrate(String baseCurrency, String targetCurrency);
