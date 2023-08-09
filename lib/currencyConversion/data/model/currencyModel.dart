@@ -44,4 +44,7 @@ static Map toJsonList(List<CurrencyModel> currencyModel) {
     return "Currency: Code: $currencyName, Rate: $currencyRate, FlagURL: $currencyFlag \n";
   }
 
+  static List<CurrencyModel> emptyCurrencyList = []; 
+  static double noRateFound = 0.0;
+
 }

@@ -13,7 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 void main() async{
- await CurrencyLocalDataSourceImp().initialiseBox();
+ await CurrencyLocalDataSourceImp().initialiseCurrencyBox();
 // remove this to another file maybe repositry imp
  await CurrencyLocalDataSourceImp().loadDataIntoDatabase();
 

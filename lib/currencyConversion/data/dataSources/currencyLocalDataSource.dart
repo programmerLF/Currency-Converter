@@ -1,5 +1,7 @@
 // will contain the method that fetched and stores data into local database
 
+import 'package:currency_converter/currencyConversion/core/errors/exceptions.dart';
+import 'package:currency_converter/currencyConversion/core/utilities/logic/currencyCalculation.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -11,21 +13,19 @@ import 'currencyRemoteDataSource.dart';
 
 
 abstract class CurrencyLocalDataSource {
- Future<void> initialiseBox();
+ Future<void> initialiseCurrencyBox();
  Future<void>loadDataIntoDatabase();
  Future<void> initialiseHitsiricalDataBox();
  Future<void> loadHistoricalDataIntoDatabase();
+ Future<List<Currency>> getLocalCurrencies();
+ Future<List<HistoricalDataModel>> getLocalHistoricalData();
+ Future<double> getOneCurrencyRate(String baseCurrency, String targetCurrency);
 
 }
 
 class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
-
-  
   @override
-
-
-  @override
-  Future<void> initialiseBox() async{
+  Future<void> initialiseCurrencyBox() async{
     await Hive.initFlutter();
   Hive.registerAdapter(CurrencyAdapter());
   currencyBox = await Hive.openBox<Currency>('currencyBox');
@@ -37,7 +37,6 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   for (var currecny in currencies) {
     currencyBox.put(currecny.currencyName, currecny);
   }
-  
   }
   
   @override
@@ -50,8 +49,72 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
     List<HistoricalDataModel> historicalData = await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
     for (var historical in historicalData) {
       historicalCurrencyBox.put(historical.date, historical);
-      print("inserting");
+      // print("inserting");
     }
   }
+  
+  @override
+  Future<List<Currency>> getLocalCurrencies() async {
+    List<Currency> currencies = [];
+    try{
+      if (currencyBox.isNotEmpty){
+           for (var element in currencyBox.values) {
+        currencies.add(element);
+      }
+      return Future.value(currencies);
+      }
+      else{
+        throw LocalDbException();
+      }
+     
+    }
+    catch(e){
+        print(e);
+        throw Exception();
+    }
+    
+  }
+  
+  @override
+  Future<List<HistoricalDataModel>> getLocalHistoricalData() async{
+    List<HistoricalDataModel> historicalData = [];
+    try{
+      
+      if(historicalCurrencyBox.isNotEmpty){
+        for (var element in historicalCurrencyBox.values) {
+        historicalData.add(element);
+      }
+      return Future.value(historicalData);
+      }
+      else{
+        throw LocalDbException();
+      }
+    }
+    catch(e){
+      print(e);
+        throw LocalDbException();
+    }
+  }
+  
+  @override
+  Future<double> getOneCurrencyRate(String baseCurrency, String targetCurrency) async{
+
+    try{
+      double baseCurrencyRate = currencyBox.get(baseCurrency)!.currencyRate.toDouble();
+      double targetCurrencyRate = currencyBox.get(targetCurrency)!.currencyRate.toDouble();
+      final rate = await CurrencyCulculation.calculateRate(baseCurrencyRate, targetCurrencyRate);
+      return Future.value(rate);
+    }
+
+    catch(e){
+      print(e);
+        throw LocalDbException();
+    }
+    
+  }
+
+
+
+
 
 }

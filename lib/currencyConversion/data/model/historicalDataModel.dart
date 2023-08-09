@@ -40,13 +40,16 @@ final String date ;
     return historicalDataMap;
   }
 
-
+    static List<HistoricalDataModel> historicalDataNotFound = []; 
+    
 
   @override
   String toString() {
    
     return "Currency: Date: $date, Code: $currencyName, Rate: $currencyRate, FlagURL: $currencyFlag \n";
   }
+
+  
 
 }
 
