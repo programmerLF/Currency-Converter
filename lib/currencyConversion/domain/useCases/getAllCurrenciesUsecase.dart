@@ -1,12 +1,13 @@
+import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
 import 'package:currency_converter/currencyConversion/domain/repositry/currencyRepositry.dart';
 
-class GetAllCurrenciesUsecase {
+class GetAllCurrencies {
     
 final CurrencyRepositry _currencyRepositry;
-GetAllCurrenciesUsecase(this._currencyRepositry);
+GetAllCurrencies(this._currencyRepositry);
 
 
-Future<void> call(){
+Future<List<Currency>> call(){
   return _currencyRepositry.getAllCurrencies();
 }
 }

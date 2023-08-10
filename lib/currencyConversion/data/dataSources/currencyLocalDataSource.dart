@@ -5,7 +5,7 @@ import 'package:currency_converter/currencyConversion/core/utilities/logic/curre
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import '../../../boxes.dart';
+import '../../core/utilities/boxes.dart';
 import '../../domain/entities/currency.dart';
 import '../model/currencyModel.dart';
 import '../model/historicalDataModel.dart';
@@ -39,9 +39,10 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   }
   }
   
+  // change
   @override
   Future<void> initialiseHitsiricalDataBox()async {
-  historicalCurrencyBox = await Hive.openBox<Currency>('historicalCurrencyBox');
+  historicalCurrencyBox = await Hive.openBox<HistoricalDataModel>('historicalCurrencyBox');
   }
   
   @override

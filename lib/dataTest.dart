@@ -57,7 +57,7 @@ final currencyRate = await repo.getOneCurrencyRate("USD", "EUR");
 print(currencyRate);
 
 
-final double currencyConverion = CurrencyConverter.convertCurrency(currencyRate, 10);
+final double currencyConverion = CurrencyConverter().convertAmount(rate: currencyRate, baseAmount: 10);
 print(currencyConverion);
 
     }

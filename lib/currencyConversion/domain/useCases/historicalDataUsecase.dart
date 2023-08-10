@@ -1,14 +1,15 @@
 
 
+import 'package:currency_converter/currencyConversion/data/model/historicalDataModel.dart';
 import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
 import 'package:currency_converter/currencyConversion/domain/repositry/currencyRepositry.dart';
 
-class GetHistoricalDataUsecase{
+class GetHistoricalData{
 
 final CurrencyRepositry _currencyRepositry;
-GetHistoricalDataUsecase(this._currencyRepositry);
+GetHistoricalData(this._currencyRepositry);
 
-Future<List<Currency>> call(){
+Future<List<HistoricalDataModel>> call(){
 
   return _currencyRepositry.getHistoricalData();
 

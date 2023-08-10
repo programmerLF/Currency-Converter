@@ -14,7 +14,8 @@ class HistoricalDataModel extends Currency{
 final String date ;
 
 // constructer of the parent class properities 
-  HistoricalDataModel({ required this.date,
+  HistoricalDataModel({ 
+    required this.date,
   String currencyName ="EUR",
   required double currencyRate,
   String currencyFlag = "https://flagcdn.com/40x30/eu.png",

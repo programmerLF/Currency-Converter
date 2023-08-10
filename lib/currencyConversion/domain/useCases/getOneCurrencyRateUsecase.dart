@@ -4,11 +4,11 @@ import 'package:currency_converter/currencyConversion/domain/repositry/currencyR
 
 
 // ignore: camel_case_types
-class getOneCurrencyRateUsecase {
+class GetOneCurrencyRate {
 
 
   final CurrencyRepositry _currencyRepositry;
-  getOneCurrencyRateUsecase(this._currencyRepositry);
+  GetOneCurrencyRate(this._currencyRepositry);
 
   Future<double> call(String baseCurrency, String targetCurrency) async {
     return await _currencyRepositry.getOneCurrencyRate(baseCurrency, targetCurrency);

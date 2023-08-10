@@ -4,9 +4,9 @@ import '../../errors/exceptions.dart';
 class CurrencyConverter{
 
 
-static convertCurrency(double rate, double targetAmount){
-        if (targetAmount >=0){
-            return rate * targetAmount;
+double convertAmount({required double rate, required double baseAmount}){
+        if (baseAmount >=0){
+            return rate * baseAmount;
         }
         else{
           throw NegativeAmountException();
