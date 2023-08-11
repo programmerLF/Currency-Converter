@@ -35,16 +35,17 @@ const LoadedCurrencyList({required this.currencies});
   List<Object?> get props => [currencies];
 }
 
+
 //////////////////////////////////////////////////
 
-class LoadedHistoricalDataList extends CurrencyState{
+// class LoadedHistoricalDataList extends CurrencyState{
 
-final List<HistoricalDataModel> historicalData;
-const LoadedHistoricalDataList({ required this.historicalData});
+// final List<HistoricalDataModel> historicalData;
+// const LoadedHistoricalDataList({ required this.historicalData});
 
-@override
-  List<Object?> get props => [historicalData];
-}
+// @override
+//   List<Object?> get props => [historicalData];
+// }
 
 //////////////////////////////////////////////////
 
@@ -56,4 +57,37 @@ const Error({ required this.errorMsg});
 @override
 
   List<Object?> get props => [errorMsg];
+}
+
+
+class CurrencyConverterState extends Equatable{
+
+final Currency baseCurrency;
+final Currency targetCurrency;
+final String baseAmount;
+final String targetAmount;
+final List<Currency>currencyList;
+
+
+
+  const CurrencyConverterState({required this.baseCurrency, required this.targetCurrency, required this.baseAmount, required this.targetAmount, required this.currencyList});
+  
+    CurrencyConverterState copyWith(Currency? baseCurrency, Currency?targetCurrency, String? baseAmount, String? targetAmount){
+      return CurrencyConverterState(baseCurrency: baseCurrency??this.baseCurrency,
+       targetCurrency: targetCurrency??this.targetCurrency,
+        baseAmount: baseAmount??this.baseAmount,
+         targetAmount: targetAmount??this.targetAmount,
+         currencyList: currencyList
+         );
+         
+    }
+
+
+  @override
+  List<Object?> get props => [baseCurrency, targetCurrency, baseAmount, targetAmount];
+
+
+
+
+
 }

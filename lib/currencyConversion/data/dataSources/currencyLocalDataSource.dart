@@ -35,7 +35,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<void> loadDataIntoDatabase() async{
     final currencies = await CurrencyRemoteDataSourceImp().fetchAllCurrencies();
   for (var currecny in currencies) {
-    currencyBox.put(currecny.currencyName, currecny);
+    currencyBox!.put(currecny.currencyName, currecny);
   }
   }
   
@@ -49,7 +49,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<void> loadHistoricalDataIntoDatabase() async{
     List<HistoricalDataModel> historicalData = await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
     for (var historical in historicalData) {
-      historicalCurrencyBox.put(historical.date, historical);
+      historicalCurrencyBox!.put(historical.date, historical);
       // print("inserting");
     }
   }
@@ -58,8 +58,9 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<List<Currency>> getLocalCurrencies() async {
     List<Currency> currencies = [];
     try{
-      if (currencyBox.isNotEmpty){
-           for (var element in currencyBox.values) {
+      print(currencyBox!.isOpen);
+      if (currencyBox!.isNotEmpty){
+           for (var element in currencyBox!.values) {
         currencies.add(element);
       }
       return Future.value(currencies);
@@ -81,9 +82,10 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
     List<HistoricalDataModel> historicalData = [];
     try{
       
-      if(historicalCurrencyBox.isNotEmpty){
-        for (var element in historicalCurrencyBox.values) {
+      if(historicalCurrencyBox!.isNotEmpty){
+        for (var element in historicalCurrencyBox!.values) {
         historicalData.add(element);
+        print("adding");
       }
       return Future.value(historicalData);
       }
@@ -101,8 +103,8 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<double> getOneCurrencyRate(String baseCurrency, String targetCurrency) async{
 
     try{
-      double baseCurrencyRate = currencyBox.get(baseCurrency)!.currencyRate.toDouble();
-      double targetCurrencyRate = currencyBox.get(targetCurrency)!.currencyRate.toDouble();
+      double baseCurrencyRate = currencyBox!.get(baseCurrency)!.currencyRate.toDouble();
+      double targetCurrencyRate = currencyBox!.get(targetCurrency)!.currencyRate.toDouble();
       final rate = await CurrencyCulculation.calculateRate(baseCurrencyRate, targetCurrencyRate);
       return Future.value(rate);
     }

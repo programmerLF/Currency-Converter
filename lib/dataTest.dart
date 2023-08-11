@@ -42,7 +42,7 @@ final currenciesList = await CurrencyLocalDataSourceImp().getLocalCurrencies();
 print(currenciesList);
 print("//////////////////////////////////////////");
 
-CurrencyRepositryImp repo = CurrencyRepositryImp(CurrencyLocalDataSourceImp(), CurrencyRemoteDataSourceImp());
+CurrencyRepositryImp repo = CurrencyRepositryImp(currencyLocalDataSource: CurrencyLocalDataSourceImp(), currencyRemoteDataSource: CurrencyRemoteDataSourceImp());
 final currenciesList2 = await repo.getAllCurrencies();
 print(currenciesList2);
 print("2222//////////////////////////////////////////");

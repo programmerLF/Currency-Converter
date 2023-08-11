@@ -13,7 +13,7 @@ class CurrencyRepositryImp implements CurrencyRepositry {
   final CurrencyLocalDataSource currencyLocalDataSource;
   final CurrencyRemoteDataSource currencyRemoteDataSource;
 
-  CurrencyRepositryImp(this.currencyLocalDataSource, this.currencyRemoteDataSource);
+  CurrencyRepositryImp({required this.currencyLocalDataSource, required this.currencyRemoteDataSource});
 
   
   @override

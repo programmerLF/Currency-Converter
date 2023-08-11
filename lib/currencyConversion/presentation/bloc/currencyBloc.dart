@@ -18,21 +18,21 @@ part 'currencyState.dart';
 class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState>{
 
 final GetAllCurrencies getAllCurrencies;
-final GetHistoricalData getHistoricalData;
+// final GetHistoricalData getHistoricalData;
 final GetOneCurrencyRate getOneCurrencyRate;
 final CurrencyConverter currencyConverter;
 
 CurrencyBloc({
  required this.getAllCurrencies,
- required this.getHistoricalData,
+//  required this.getHistoricalData,
  required this.getOneCurrencyRate,
  required this.currencyConverter,
 
 }) : super(Loading()){
 on<GetAllCurrenciesEvent>(_getAllCurrencies);
-on<GetHistoricalDataEvent>(_getHistoricalData);
+// on<GetHistoricalDataEvent>(_getHistoricalData);
 on<GetOneCurrencyRateEvent>(_getOneCurrencyRate);
-
+// on<OnChangedCurrency>(_onChangedCurrency);
 }
 
 
@@ -47,16 +47,16 @@ void _getAllCurrencies(GetAllCurrenciesEvent event, Emitter<CurrencyState> emit)
 
 }
 
-void _getHistoricalData( GetHistoricalDataEvent event, Emitter<CurrencyState> emit)async{
+// void _getHistoricalData( GetHistoricalDataEvent event, Emitter<CurrencyState> emit)async{
 
-    final historicalData = await getHistoricalData();
-    if (historicalData == HistoricalDataModel.historicalDataNotFound){
-      emit(const Error( errorMsg: "An Error occured while fetching the list of Historical Data"));
-    }
-    else{
-      emit(LoadedHistoricalDataList(historicalData: historicalData));
-    }
-}
+//     final historicalData = await getHistoricalData();
+//     if (historicalData == HistoricalDataModel.historicalDataNotFound){
+//       emit(const Error( errorMsg: "An Error occured while fetching the list of Historical Data"));
+//     }
+//     else{
+//       emit(LoadedHistoricalDataList(historicalData: historicalData));
+//     }
+// }
 
 
 void _getOneCurrencyRate(GetOneCurrencyRateEvent event, Emitter<CurrencyState> emit)async{

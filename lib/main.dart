@@ -1,29 +1,19 @@
-import 'package:currency_converter/currencyConversion/core/utilities/boxes.dart';
 import 'package:currency_converter/currencyConversion/data/dataSources/currencyLocalDataSource.dart';
 import 'package:currency_converter/currencyConversion/data/model/historicalDataModel.dart';
 import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
 import 'package:currency_converter/currencyConversion/presentation/pages/homePage.dart';
 import 'package:flutter/material.dart';
-import 'currencyConversion/data/dataSources/currencyRemoteDataSource.dart';
-import 'currencyConversion/data/model/currencyModel.dart';
-import 'currencyConversion/data/repositry/currencyRepositryImp.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'currencyConversion/domain/repositry/currencyRepositry.dart';
+import 'injectionContainer.dart' as di;
+import 'injectionContainer.dart';
 
 
-List<HistoricalDataModel> historicalData=[];
-List<Currency>currenciesList=[];
 
 void main() async{
- await CurrencyLocalDataSourceImp().initialiseCurrencyBox();
-// remove this to another file maybe repositry imp
- await CurrencyLocalDataSourceImp().initialiseHitsiricalDataBox();
-
-
- CurrencyRepositryImp repo = CurrencyRepositryImp(CurrencyLocalDataSourceImp(), CurrencyRemoteDataSourceImp());
- currenciesList = await repo.getAllCurrencies();
- historicalData = await repo.getHistoricalData();
-
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+  await sl<CurrencyLocalDataSource>().initialiseCurrencyBox();
+  await sl<CurrencyLocalDataSource>().initialiseHitsiricalDataBox();
   runApp(const MyApp());
 }
 
@@ -36,9 +26,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {  
     
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Currency Converter App',
-      home: CurrencyPage( historicalData: historicalData, currenciesList: currenciesList,),
+      home: CurrencyPage(),
     );
   }
 }
