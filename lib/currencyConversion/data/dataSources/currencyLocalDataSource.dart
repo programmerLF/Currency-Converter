@@ -33,7 +33,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<void> loadDataIntoDatabase() async{
     final currencies = await CurrencyRemoteDataSourceImp().fetchAllCurrencies();
   for (var currecny in currencies) {
-    currencyBox!.put(currecny.currencyName, currecny);
+    currencyBox.put(currecny.currencyName, currecny);
   }
   }
   
@@ -56,9 +56,9 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   @override
   Future<List<Currency>> getLocalCurrencies() async {
     List<Currency> currencies = [];
-    try{
-      if (currencyBox!.isNotEmpty){
-           for (var element in currencyBox!.values) {
+    
+      if (currencyBox.isNotEmpty){
+           for (var element in currencyBox.values) {
         currencies.add(element);
       }
       return Future.value(currencies);
@@ -68,17 +68,14 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
       }
      
     }
-    catch(e){
-        print(e);
-        throw Exception();
-    }
     
-  }
+    
+  
   
   @override
   Future<List<HistoricalDataModel>> getLocalHistoricalData() async{
     List<HistoricalDataModel> historicalData = [];
-    try{
+    
       if(historicalCurrencyBox.isNotEmpty){
         for (var element in historicalCurrencyBox.values) {
         historicalData.add(element);
@@ -89,11 +86,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
         throw LocalDbException();
       }
     }
-    catch(e){
-      print(e);
-        throw LocalDbException();
-    }
-  }
+  
   
   @override
   Future<double> getOneCurrencyRate(String baseCurrency, String targetCurrency) async{
