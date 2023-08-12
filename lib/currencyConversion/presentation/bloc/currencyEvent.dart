@@ -1,7 +1,7 @@
 part of 'currencyBloc.dart';
 
 
-
+// contains classes of all the events that will be triggered 
 
 abstract class CurrencyEvent extends Equatable{
   const CurrencyEvent();

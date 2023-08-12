@@ -22,13 +22,18 @@ abstract class CurrencyLocalDataSource {
 }
 
 class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
+
+
   @override
+
+  // the following method inistialises the currencybox 
   Future<void> initialiseCurrencyBox() async{
     await Hive.initFlutter();
   Hive.registerAdapter(CurrencyAdapter());
   currencyBox = await Hive.openBox<Currency>('currencyBox');
   }
   
+  // loads data into currencybox after fetching it from the api
   @override
   Future<void> loadDataIntoDatabase() async{
     final currencies = await CurrencyRemoteDataSourceImp().fetchAllCurrencies();
@@ -37,7 +42,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   }
   }
   
-  // change
+  // the following method inistialises the historicalDatabBox
   @override
   Future<void> initialiseHitsiricalDataBox()async {
   Hive.registerAdapter(HistoricalDataModelAdapter());
@@ -45,6 +50,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
  
   }
   
+  // loads data into historticalDataBox after fetching it from the api
   @override
   Future<void> loadHistoricalDataIntoDatabase() async{
     List<HistoricalDataModel> historicalData = await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
@@ -53,6 +59,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
     }
   }
   
+  // gets the currency list from the local database
   @override
   Future<List<Currency>> getLocalCurrencies() async {
     List<Currency> currencies = [];
@@ -71,7 +78,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
     
     
   
-  
+  // gets the historical data list from the local database
   @override
   Future<List<HistoricalDataModel>> getLocalHistoricalData() async{
     List<HistoricalDataModel> historicalData = [];
@@ -87,21 +94,21 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
       }
     }
   
-  
+  // gets the calculated rate 
   @override
   Future<double> getOneCurrencyRate(String baseCurrency, String targetCurrency) async{
 
-    try{
-      double baseCurrencyRate = currencyBox!.get(baseCurrency)!.currencyRate.toDouble();
-      double targetCurrencyRate = currencyBox!.get(targetCurrency)!.currencyRate.toDouble();
+
+      if (currencyBox.isNotEmpty){
+      double baseCurrencyRate = currencyBox.get(baseCurrency)!.currencyRate.toDouble();
+      double targetCurrencyRate = currencyBox.get(targetCurrency)!.currencyRate.toDouble();
       final rate = await CurrencyCulculation.calculateRate(baseCurrencyRate: baseCurrencyRate, targetCurrencyRate: targetCurrencyRate);
       return Future.value(rate);
-    }
 
-    catch(e){
-      print(e);
+      }
+      else{
         throw LocalDbException();
-    }
+      }
     
   }
 

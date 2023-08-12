@@ -3,6 +3,7 @@ import 'package:currency_converter/currencyConversion/core/errors/exceptions.dar
 
 class CurrencyCulculation{
 
+    // the following method calculates the rate of 2 currencies 
     static calculateRate({ required double baseCurrencyRate, required double targetCurrencyRate}) async{
       try{
             double rate = (((targetCurrencyRate/baseCurrencyRate) * 1000).round())/1000;

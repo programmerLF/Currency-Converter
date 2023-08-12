@@ -13,6 +13,9 @@ import '../../domain/entities/currency.dart';
 part 'currencyEvent.dart';
 part 'currencyState.dart';
 
+// currency bloc will manage the state of the currency conversion part of the application where it handle the 
+//data selected and entered by the user to the convert the base amount to the tagrdet amount 
+
 class CurrencyBloc extends Bloc<CurrencyEvent, CurrencyState>{
 
 final GetAllCurrencies getAllCurrencies;
@@ -27,25 +30,25 @@ CurrencyBloc({
  required this.currencyConverter,
 
 }) : super(const CurrencyState()){
+  // events that needs to be triggered 
 on<GetAllCurrenciesEvent>(_getAllCurrencies);
-// on<GetHistoricalDataEvent>(_getHistoricalData);
 on<GetOneCurrencyRateEvent>(_getOneCurrencyRate);
-// on<OnChangedCurrency>(_onChangedCurrency);
   on<OnChangedBaseCurrencyEvent>(_onChangedBaseCurrency);
   on<OnChangedTargetCurrencyEvent>(_onChangedTargetCurrency);
 }
 
-
+// the the following method gets invoked when user selects the base currency 
 void _onChangedBaseCurrency(OnChangedBaseCurrencyEvent event, Emitter<CurrencyState> emit)async {
 emit(state.copyWith(baseCurrency: event.baseCurrency));
 }
 
+// the the following method gets invoked when user selects the target currency 
 void _onChangedTargetCurrency(OnChangedTargetCurrencyEvent event, Emitter<CurrencyState>emit ) async{
 emit(state.copyWith(targetCurrency: event.targetCurrency,));
 }
 
 
-
+// the following method gets imvoked at the when the state of the list is not loaded yet 
 void _getAllCurrencies(GetAllCurrenciesEvent event, Emitter<CurrencyState> emit) async{
 
     final currencies = await getAllCurrencies();
@@ -63,6 +66,8 @@ void _getAllCurrencies(GetAllCurrenciesEvent event, Emitter<CurrencyState> emit)
 
 }
 
+
+// the following method gets invoked when the user enters the base amount it autumaticaly calculates the target amount
 void _getOneCurrencyRate(GetOneCurrencyRateEvent event, Emitter<CurrencyState> emit)async{
  
  

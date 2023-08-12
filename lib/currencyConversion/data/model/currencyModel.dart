@@ -41,7 +41,7 @@ static Map toJsonList(List<CurrencyModel> currencyModel) {
 // to string method
    @override
   String toString() {
-    return "Currency: Code: $currencyName, Rate: $currencyRate, FlagURL: $currencyFlag \n";
+    return "currencyName: $currencyName, currencyRate: $currencyRate, currencyFlag: $currencyFlag \n";
   }
 
   static List<CurrencyModel> emptyCurrencyList = []; 

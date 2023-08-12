@@ -1,7 +1,7 @@
 part of 'currencyBloc.dart';
 
 
-
+// currency contains all the fields needed and stores the of each one of them. copywith method is also implemented to allow us to update specific fields
 class CurrencyState extends Equatable{
 
  const CurrencyState({
@@ -28,6 +28,7 @@ class CurrencyState extends Equatable{
   final String rateErrorMsg;
   final bool rateHasError;
 
+  
   CurrencyState copyWith({
     Currency? baseCurrency,
     Currency? targetCurrency,
@@ -58,32 +59,6 @@ class CurrencyState extends Equatable{
   List<Object?> get props => [baseCurrency, targetCurrency, currencyList, baseAmountStr, targetAmountStr, isListLoaded];
 }
 
-
-// class Loading extends CurrencyState{}
-
-// //////////////////////////////////////////////////
-
-// class Converted extends CurrencyState{
-// final double targetAmount;
-
-// const Converted({required this.targetAmount});
-
-// @override
-//   List<Object?> get props => [targetAmount];
-// }
-
-// //////////////////////////////////////////////////
-
-
-// class Error extends CurrencyState{
-
-// final String errorMsg;
-// const Error({ required this.errorMsg});
-
-// @override
-
-//   List<Object?> get props => [errorMsg];
-// }
 
 
 

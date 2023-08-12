@@ -1,6 +1,8 @@
 
 class HistoricalCurrencyDates{
 
+
+// the following method returns a map of 2 dates in the same format eeded by the histprical data api.
   Map<String,String> getAccurateDate(){
         DateTime now = DateTime.now();
         DateTime today = DateTime(now.year, now.month, now.day);
@@ -13,7 +15,7 @@ class HistoricalCurrencyDates{
                 'to': to};
 }
 
-
+// the follwing method returns a list of a date in dd-mm-yyyy format 
 String dateFormat(String date){
  List<String> dateParts = date.split('-');
  String yearPart = dateParts[0];

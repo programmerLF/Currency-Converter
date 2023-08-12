@@ -8,7 +8,7 @@ import '../../data/model/historicalDataModel.dart';
 part 'historicalDataEvent.dart';
 part 'historicalDataState.dart';
 
-
+// historical bloc manages the state of the historical data list 
 class HistoricalDataBloc extends Bloc<HitoricalDataEvent, HistoricalDataState>{
 
 

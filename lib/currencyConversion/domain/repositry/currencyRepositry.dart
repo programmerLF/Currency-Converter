@@ -5,7 +5,7 @@ import 'package:currency_converter/currencyConversion/domain/entities/currency.d
 
 abstract class CurrencyRepositry  {
 
-// method that will be used to convert currencies.
+// method that will be used to calculate the rate between 2 currencies.
 Future<double> getOneCurrencyRate(String baseCurrency, String targetCurrency);
 
 // method that will get the list of currencies

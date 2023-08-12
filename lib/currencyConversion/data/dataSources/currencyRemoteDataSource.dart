@@ -19,6 +19,7 @@ class CurrencyRemoteDataSourceImp implements CurrencyRemoteDataSource {
   
 
   @override
+  // the fowllowing method fetches the data from the api and returns a list of currenices 
   Future<List<CurrencyModel>> fetchAllCurrencies() async{
     
           final http.Response response = await http.get(Uri.parse(
@@ -61,6 +62,8 @@ class CurrencyRemoteDataSourceImp implements CurrencyRemoteDataSource {
          
     }
     
+
+    // the following method fetches the historical data and returns it as alist
       @override
       Future<List<HistoricalDataModel>> fecthHitoricaldata() async{
         Map<String,String> dates = HistoricalCurrencyDates().getAccurateDate();

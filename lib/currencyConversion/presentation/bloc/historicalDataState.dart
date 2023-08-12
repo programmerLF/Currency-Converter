@@ -1,7 +1,7 @@
 part of 'historicalDataBloc.dart';
 
 
-
+// contains all the states that might occure white getting historical data
 abstract class HistoricalDataState extends Equatable{
 
  const HistoricalDataState();
@@ -12,20 +12,6 @@ abstract class HistoricalDataState extends Equatable{
 
 
 class HistoricalDataLoading extends HistoricalDataState{}
-
-//////////////////////////////////////////////////
-
-class Converted extends HistoricalDataState{
-final double targetAmount;
-
-const Converted({required this.targetAmount});
-
-@override
-  List<Object?> get props => [targetAmount];
-}
-
-//////////////////////////////////////////////////
-
 
 
 //////////////////////////////////////////////////
