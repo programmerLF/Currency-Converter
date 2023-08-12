@@ -2,92 +2,88 @@ part of 'currencyBloc.dart';
 
 
 
-abstract class CurrencyState extends Equatable{
+class CurrencyState extends Equatable{
 
- const CurrencyState();
+ const CurrencyState({
+    this.baseCurrency,
+    this.targetCurrency,
+    this.currencyList,
+    this.baseAmountStr = "0.0",
+    this.targetAmountStr = "0.0",
+    this.isListLoaded = false,
+    this.listErrorMessage="Couldn't Fetch List",
+    this.listHasError=false,
+    this.rateErrorMsg=" Couldn't Fetch Rate",
+    this.rateHasError=false,
+    
+  });
+  final Currency? baseCurrency;
+  final Currency? targetCurrency;
+  final List<Currency>? currencyList;
+  final String baseAmountStr;
+  final String targetAmountStr;
+  final bool isListLoaded;
+  final bool listHasError;
+  final String listErrorMessage;
+  final String rateErrorMsg;
+  final bool rateHasError;
 
- @override
-  List<Object?> get props => [];
-}
-
-
-class Loading extends CurrencyState{}
-
-//////////////////////////////////////////////////
-
-class Converted extends CurrencyState{
-final double targetAmount;
-
-const Converted({required this.targetAmount});
-
-@override
-  List<Object?> get props => [targetAmount];
-}
-
-//////////////////////////////////////////////////
-
-class LoadedCurrencyList extends CurrencyState{
-
-final List<Currency> currencies;
-const LoadedCurrencyList({required this.currencies});
-
-@override
-  List<Object?> get props => [currencies];
-}
-
-
-//////////////////////////////////////////////////
-
-// class LoadedHistoricalDataList extends CurrencyState{
-
-// final List<HistoricalDataModel> historicalData;
-// const LoadedHistoricalDataList({ required this.historicalData});
-
-// @override
-//   List<Object?> get props => [historicalData];
-// }
-
-//////////////////////////////////////////////////
-
-class Error extends CurrencyState{
-
-final String errorMsg;
-const Error({ required this.errorMsg});
-
-@override
-
-  List<Object?> get props => [errorMsg];
-}
-
-
-class CurrencyConverterState extends Equatable{
-
-final Currency baseCurrency;
-final Currency targetCurrency;
-final String baseAmount;
-final String targetAmount;
-final List<Currency>currencyList;
-
-
-
-  const CurrencyConverterState({required this.baseCurrency, required this.targetCurrency, required this.baseAmount, required this.targetAmount, required this.currencyList});
-  
-    CurrencyConverterState copyWith(Currency? baseCurrency, Currency?targetCurrency, String? baseAmount, String? targetAmount){
-      return CurrencyConverterState(baseCurrency: baseCurrency??this.baseCurrency,
-       targetCurrency: targetCurrency??this.targetCurrency,
-        baseAmount: baseAmount??this.baseAmount,
-         targetAmount: targetAmount??this.targetAmount,
-         currencyList: currencyList
-         );
-         
-    }
-
+  CurrencyState copyWith({
+    Currency? baseCurrency,
+    Currency? targetCurrency,
+    List<Currency>? currencyList,
+    String? baseAmountStr,
+    String? targetAmountStr,
+    bool? isListLoaded,
+    String? listErrorMessage,
+    bool? listHasError,
+    String? rateErrorMsg,
+    bool? rateHasError,
+  }) =>
+      CurrencyState(
+          baseCurrency: baseCurrency ?? this.baseCurrency,
+          targetCurrency: targetCurrency ?? this.targetCurrency,
+          currencyList: currencyList ?? this.currencyList,
+          baseAmountStr: baseAmountStr ?? this.baseAmountStr,
+          targetAmountStr: targetAmountStr ?? this.targetAmountStr,
+          isListLoaded: isListLoaded ?? this.isListLoaded,
+          listErrorMessage: listErrorMessage ?? this.listErrorMessage,
+          listHasError: listHasError ?? this.listHasError,
+          rateErrorMsg: rateErrorMsg?? this.rateErrorMsg,
+          rateHasError: rateHasError?? this.rateHasError
+          );
+          
 
   @override
-  List<Object?> get props => [baseCurrency, targetCurrency, baseAmount, targetAmount];
-
-
-
-
-
+  List<Object?> get props => [baseCurrency, targetCurrency, currencyList, baseAmountStr, targetAmountStr, isListLoaded];
 }
+
+
+// class Loading extends CurrencyState{}
+
+// //////////////////////////////////////////////////
+
+// class Converted extends CurrencyState{
+// final double targetAmount;
+
+// const Converted({required this.targetAmount});
+
+// @override
+//   List<Object?> get props => [targetAmount];
+// }
+
+// //////////////////////////////////////////////////
+
+
+// class Error extends CurrencyState{
+
+// final String errorMsg;
+// const Error({ required this.errorMsg});
+
+// @override
+
+//   List<Object?> get props => [errorMsg];
+// }
+
+
+

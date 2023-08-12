@@ -2,12 +2,10 @@
 
 import 'package:currency_converter/currencyConversion/core/errors/exceptions.dart';
 import 'package:currency_converter/currencyConversion/core/utilities/logic/currencyCalculation.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 
 import '../../core/utilities/boxes.dart';
 import '../../domain/entities/currency.dart';
-import '../model/currencyModel.dart';
 import '../model/historicalDataModel.dart';
 import 'currencyRemoteDataSource.dart';
 
@@ -42,15 +40,16 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   // change
   @override
   Future<void> initialiseHitsiricalDataBox()async {
+  Hive.registerAdapter(HistoricalDataModelAdapter());
   historicalCurrencyBox = await Hive.openBox<HistoricalDataModel>('historicalCurrencyBox');
+ 
   }
   
   @override
   Future<void> loadHistoricalDataIntoDatabase() async{
     List<HistoricalDataModel> historicalData = await CurrencyRemoteDataSourceImp().fecthHitoricaldata();
     for (var historical in historicalData) {
-      historicalCurrencyBox!.put(historical.date, historical);
-      // print("inserting");
+      historicalCurrencyBox.put(historical.date, historical);
     }
   }
   
@@ -58,7 +57,6 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<List<Currency>> getLocalCurrencies() async {
     List<Currency> currencies = [];
     try{
-      print(currencyBox!.isOpen);
       if (currencyBox!.isNotEmpty){
            for (var element in currencyBox!.values) {
         currencies.add(element);
@@ -81,11 +79,9 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
   Future<List<HistoricalDataModel>> getLocalHistoricalData() async{
     List<HistoricalDataModel> historicalData = [];
     try{
-      
-      if(historicalCurrencyBox!.isNotEmpty){
-        for (var element in historicalCurrencyBox!.values) {
+      if(historicalCurrencyBox.isNotEmpty){
+        for (var element in historicalCurrencyBox.values) {
         historicalData.add(element);
-        print("adding");
       }
       return Future.value(historicalData);
       }
@@ -105,7 +101,7 @@ class CurrencyLocalDataSourceImp implements CurrencyLocalDataSource{
     try{
       double baseCurrencyRate = currencyBox!.get(baseCurrency)!.currencyRate.toDouble();
       double targetCurrencyRate = currencyBox!.get(targetCurrency)!.currencyRate.toDouble();
-      final rate = await CurrencyCulculation.calculateRate(baseCurrencyRate, targetCurrencyRate);
+      final rate = await CurrencyCulculation.calculateRate(baseCurrencyRate: baseCurrencyRate, targetCurrencyRate: targetCurrencyRate);
       return Future.value(rate);
     }
 

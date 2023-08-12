@@ -13,32 +13,42 @@ abstract class CurrencyEvent extends Equatable{
 
 
 class GetAllCurrenciesEvent extends CurrencyEvent{}
-class OnChangedBaseCurrency extends CurrencyEvent{
-  final Currency currency;
-  const OnChangedBaseCurrency({required this.currency});
+class OnChangedBaseCurrencyEvent extends CurrencyEvent{
+  final Currency baseCurrency;
+  const OnChangedBaseCurrencyEvent({required this.baseCurrency});
   
 @override
-  List<Object?> get props => [currency];
+  List<Object?> get props => [baseCurrency];
 
 
 }
 
-class OnChangedTargetCurrency extends CurrencyEvent{
+class OnChangedTargetCurrencyEvent extends CurrencyEvent{
   final Currency targetCurrency;
-  const OnChangedTargetCurrency({required this.targetCurrency});
+  const OnChangedTargetCurrencyEvent({required this.targetCurrency});
   
 @override
   List<Object?> get props => [targetCurrency];
 }
 
-class OnChangedBaseAmount extends CurrencyEvent{
+class OnChangedBaseAmountEvent extends CurrencyEvent{
   final String baseAmount;
-  const OnChangedBaseAmount({required this.baseAmount});
+  const OnChangedBaseAmountEvent({required this.baseAmount});
   
 @override
   List<Object?> get props => [baseAmount];
 
 }
+class OnChangedTargetAmountEvent extends CurrencyEvent{
+  final String targetAmount;
+  const OnChangedTargetAmountEvent({required this.targetAmount});
+  
+@override
+  List<Object?> get props => [targetAmount];
+
+}
+
+
 
 
 
@@ -48,7 +58,7 @@ class OnChangedBaseAmount extends CurrencyEvent{
 class GetOneCurrencyRateEvent extends CurrencyEvent{
   final String baseCurrncy;
   final String targetCurrency;
-  final double baseAmount;
+  final String baseAmount;
 
   const GetOneCurrencyRateEvent({
     required this.baseCurrncy,

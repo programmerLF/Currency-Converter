@@ -68,7 +68,7 @@ class CurrencyRemoteDataSourceImp implements CurrencyRemoteDataSource {
         String? from = dates['from'];
        
         final http.Response response = await http.get(Uri.parse(
-        "https://api.freecurrencyapi.com/v1/historical?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ&currencies=EUR&date_from=${from}T18%3A32%3A53.721Z&date_to=${to}T18%3A32%3A53.722Z"));
+        "https://api.freecurrencyapi.com/v1/historical?apikey=fca_live_CWyF35b55P9PtpANIMD1WMSm2ZD1J8h408R3bwkJ&currencies=EUR&date_from=${from}T13%3A58%3A43.527Z&date_to=${to}T13%3A58%3A43.527Z"));
 
         if (response.statusCode == 200){
 

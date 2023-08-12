@@ -1,15 +1,8 @@
 
-
-import 'package:currency_converter/currencyConversion/core/errors/exceptions.dart';
-import 'package:currency_converter/currencyConversion/core/utilities/logic/currencyConverter.dart';
-import 'package:currency_converter/currencyConversion/data/model/currencyModel.dart';
-import 'package:currency_converter/currencyConversion/domain/useCases/getAllCurrenciesUsecase.dart';
-import 'package:currency_converter/currencyConversion/domain/useCases/getOneCurrencyRateUsecase.dart';
 import 'package:currency_converter/currencyConversion/domain/useCases/historicalDataUsecase.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../data/model/historicalDataModel.dart';
-import '../../domain/entities/currency.dart';
 
 
 part 'historicalDataEvent.dart';

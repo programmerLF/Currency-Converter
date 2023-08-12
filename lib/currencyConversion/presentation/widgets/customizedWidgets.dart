@@ -113,3 +113,24 @@ class CurrenciesDropDownMenu extends StatelessWidget {
     );
   }
 }
+
+
+class NetworkImgWidget extends StatelessWidget {
+  const NetworkImgWidget({
+    super.key, required this.flagUrl,
+  });
+
+  final String flagUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      imageUrl: flagUrl,
+      placeholder: (context, url) => CircularProgressIndicator(
+        color: $greenColor,
+      ),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+    );
+  }
+}
+

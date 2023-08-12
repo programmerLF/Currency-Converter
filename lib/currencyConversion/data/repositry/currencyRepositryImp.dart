@@ -41,6 +41,7 @@ class CurrencyRepositryImp implements CurrencyRepositry {
    try{
      historicalData = await currencyLocalDataSource.getLocalHistoricalData();
      return historicalData;
+     
    }on LocalDbException{
      try{
        historicalData = await currencyRemoteDataSource.fecthHitoricaldata();

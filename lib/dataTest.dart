@@ -1,15 +1,15 @@
 // will contain the method that fetches the data from the API
 
+
+// ignore_for_file: avoid_print
+
 // import 'currencyConversion/data/dataSources/currencyLocalDataSource.dart';
+import 'package:currency_converter/currencyConversion/core/utilities/boxes.dart';
 import 'package:currency_converter/currencyConversion/core/utilities/logic/currencyConverter.dart';
 import 'package:currency_converter/currencyConversion/data/repositry/currencyRepositryImp.dart';
 
 import 'currencyConversion/data/dataSources/currencyLocalDataSource.dart';
 import 'currencyConversion/data/dataSources/currencyRemoteDataSource.dart';
-import 'currencyConversion/data/model/currencyModel.dart';
-import 'currencyConversion/data/model/historicalDataModel.dart';
-import 'currencyConversion/domain/repositry/currencyRepositry.dart';
-
 
     void main() async{
 
@@ -48,8 +48,8 @@ print(currenciesList2);
 print("2222//////////////////////////////////////////");
 
 
-final HistoricalData = await repo.getHistoricalData();
-print(HistoricalData);
+final historicalData = await repo.getHistoricalData();
+print(historicalData);
 print("3333//////////////////////////////////////////");
 
 
@@ -57,8 +57,11 @@ final currencyRate = await repo.getOneCurrencyRate("USD", "EUR");
 print(currencyRate);
 
 
-final double currencyConverion = CurrencyConverter().convertAmount(rate: currencyRate, baseAmount: 10);
+final double currencyConverion = CurrencyConverter().convertAmount(rate: currencyRate, baseAmount: "10");
 print(currencyConverion);
+print(historicalCurrencyBox.isEmpty);
+
+
 
     }
 

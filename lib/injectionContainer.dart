@@ -2,10 +2,7 @@ import 'package:currency_converter/currencyConversion/core/utilities/logic/curre
 import 'package:currency_converter/currencyConversion/core/utilities/logic/currencyConverter.dart';
 import 'package:currency_converter/currencyConversion/core/utilities/logic/flagUrlGenerator.dart';
 import 'package:currency_converter/currencyConversion/core/utilities/logic/historicalCurrencyDates.dart';
-import 'package:currency_converter/currencyConversion/data/model/currencyModel.dart';
-import 'package:currency_converter/currencyConversion/data/model/historicalDataModel.dart';
 import 'package:currency_converter/currencyConversion/data/repositry/currencyRepositryImp.dart';
-import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
 import 'package:currency_converter/currencyConversion/domain/repositry/currencyRepositry.dart';
 import 'package:currency_converter/currencyConversion/domain/useCases/getAllCurrenciesUsecase.dart';
 import 'package:currency_converter/currencyConversion/domain/useCases/getOneCurrencyRateUsecase.dart';
@@ -13,10 +10,6 @@ import 'package:currency_converter/currencyConversion/domain/useCases/historical
 import 'package:currency_converter/currencyConversion/presentation/bloc/currencyBloc.dart';
 import 'package:currency_converter/currencyConversion/presentation/bloc/historicalDataBloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
-
-import 'currencyConversion/core/utilities/boxes.dart';
 import 'currencyConversion/data/dataSources/currencyLocalDataSource.dart';
 import 'currencyConversion/data/dataSources/currencyRemoteDataSource.dart';
 

@@ -1,10 +1,7 @@
 
-
-import 'package:currency_converter/currencyConversion/data/model/currencyModel.dart';
 import 'package:currency_converter/currencyConversion/domain/entities/currency.dart';
 import 'package:hive/hive.dart';
 
-import '../../core/utilities/logic/flagUrlGenerator.dart';
 
 part 'historicalDataModel.g.dart';
 @HiveType(typeId: 1)
