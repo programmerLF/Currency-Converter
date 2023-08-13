@@ -12,24 +12,24 @@ void main () {
 
 final MockCurrencyRepositry mockCurrencyRepositry = MockCurrencyRepositry();
 final GetHistoricalData useCase = GetHistoricalData(mockCurrencyRepositry);
-final List<HistoricalDataModel> testCurrencyList = [
+final List<HistoricalDataModel> testHistoricalData = [
 
   HistoricalDataModel(  date:"2023-08-04", currencyName: "EUR", currencyRate: 0.911, currencyFlag: "EUFlagUrl",),
   HistoricalDataModel(  date:"2023-08-05",currencyName: "EUR", currencyRate: 0.922, currencyFlag: "EUFlagUrl", ),
 ];
 
 
-test("A List of Currencies should be returned ", () async{
+test("A List of Historical Data should be returned ", () async{
 
 // arrange
- when(() => mockCurrencyRepositry.getAllCurrencies()).thenAnswer((_) async => testCurrencyList);
+ when(() => mockCurrencyRepositry.getHistoricalData()).thenAnswer((_) async => testHistoricalData);
 
 // act
- final result = await useCase;
+ final result = await useCase();
 
 //assert
-expect(result, testCurrencyList);
-verify(()=> mockCurrencyRepositry.getAllCurrencies());
+expect(result, testHistoricalData);
+verify(()=> mockCurrencyRepositry.getHistoricalData());
 verifyNoMoreInteractions(mockCurrencyRepositry);
 
 });

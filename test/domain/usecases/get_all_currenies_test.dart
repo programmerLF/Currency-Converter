@@ -8,10 +8,10 @@ import 'package:mocktail/mocktail.dart';
 
 class MockCurrencyRepositry extends  Mock implements CurrencyRepositry{}
 
-void main () {
+void main ()  {
 
 final MockCurrencyRepositry mockCurrencyRepositry = MockCurrencyRepositry();
-final GetAllCurrencies useCase = GetAllCurrencies(mockCurrencyRepositry);
+final GetAllCurrencies useCase =  GetAllCurrencies(mockCurrencyRepositry);
 final List<Currency> testCurrencyList = [
 
   Currency( currencyName: "USD", currencyRate: 1, currencyFlag: "USFlagUrl",),
@@ -22,10 +22,10 @@ final List<Currency> testCurrencyList = [
 test("A List of Currencies should be returned ", () async{
 
 // arrange
- when(() => mockCurrencyRepositry.getAllCurrencies()).thenAnswer((_) async => testCurrencyList);
+ when(() =>  mockCurrencyRepositry.getAllCurrencies()).thenAnswer((_) async => testCurrencyList);
 
 // act
- final result = await useCase;
+ final result = await useCase();
 
 //assert
 expect(result, testCurrencyList);
